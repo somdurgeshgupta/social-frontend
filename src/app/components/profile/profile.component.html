@@ -1,0 +1,42 @@
+<div class="col-lg-8">
+    <h1 class="h1-strong">
+        {{title}}
+    </h1>
+    <div id="data-profile" *ngIf="user">
+        <div class="avatar pull-left">
+            <img src="{{url + 'get-image-user/' + user.image}}" *ngIf="user.image" />
+            <img src="assets/user.png" *ngIf="!user.image" />
+        </div>
+        <div class="user-name pull-left">
+            <div class="label label-default pull-left" *ngIf="followed">
+                Follow you
+            </div>
+            <div class="clearfix"></div>
+            <div class="pull-left">
+                <p class="name">
+                    {{user.name + ' ' + user.surname}}
+                </p>
+                <p class="nick">
+                    {{user.nick}}
+                </p>
+            </div>
+            <div class="clearfix"></div>
+            <div class="follow pull-left" *ngIf="user._id != identity._id">
+                <button class="btn btn-success" *ngIf="!following" (click)="followUser(user._id)">
+                    Follow
+                </button>
+                <button class="btn btn-primary" *ngIf="following" (click)="unfollowUser(user._id)"
+                    (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave(user._id)"
+                    [class.btn-danger]="user._id == followUserOver">
+                    <span *ngIf="user._id == followUserOver; else following">
+                        <span class="glyphicon glyphicon-minus-sign"></span> Stop following
+                    </span>
+                    <ng-template #following>
+                        <span class="glyphicon glyphicon-ok-sign"></span> Following
+                    </ng-template>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<sidebar></sidebar>
